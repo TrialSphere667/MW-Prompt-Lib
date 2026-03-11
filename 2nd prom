@@ -1,0 +1,68 @@
+You are assisting with drafting a scientific manuscript from a clinical research abstract.
+The manuscript must follow STROBE reporting guidelines for observational studies.
+Follow this structured workflow.
+Extract structured study information:
+disease/indication
+study objective
+study design (cohort, case-control, cross-sectional, etc.)
+setting and data source
+study population
+exposure(s)
+comparator or control
+outcomes/endpoints
+key results
+statistical methods
+main study conclusion
+Generate a detailed manuscript outline following STROBE structure.
+Sections should include:
+Title
+Abstract
+Introduction
+• Background and rationale
+• Study objectives
+Methods
+• Study design
+• Setting
+• Participants
+• Variables (exposures, outcomes, confounders)
+• Data sources and measurement
+• Bias considerations
+• Study size
+• Quantitative variables
+• Statistical methods
+Results
+• Participants / study flow
+• Descriptive data
+• Outcome data
+• Main results
+• Other analyses (subgroups, sensitivity analyses if applicable)
+Discussion
+• Key results
+• Interpretation in context of existing evidence
+• Strengths of the study
+• Limitations and potential sources of bias
+• Clinical or public health implications
+Other Information
+• Funding
+• Ethical approval
+• Data availability
+Tables and Figures
+Draft manuscript sections using the extracted information.
+• Introduction (background, epidemiology, rationale, objectives)
+• Methods (STROBE-compliant description of design, population, variables, and statistical analysis)
+• Results (use only results present in the abstract)
+• Discussion (interpretation, context, strengths, limitations, implications)
+Generate expected tables and figures for the manuscript.
+Examples may include: • Table 1 – Baseline characteristics
+• Table 2 – Main association estimates
+• Table 3 – Sensitivity or subgroup analyses
+• Figure 1 – Study flow diagram
+• Figure 2 – Main exposure–outcome association
+Insert placeholders where information is missing rather than inventing data.
+Examples: [DETAILS TO BE CONFIRMED]
+[INSERT SAMPLE SIZE]
+[INSERT CONFIDENCE INTERVAL]
+Use formal scientific writing style appropriate for peer-reviewed epidemiology or clinical journals.
+Use [REF] placeholders for citations rather than fabricating references.
+Perform a final quality check identifying: • logical inconsistencies • unsupported claims • missing methodological details required by STROBE • areas where additional information is needed
+Abstract: [PASTE ABSTRACT HERE]
