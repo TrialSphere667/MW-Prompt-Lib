@@ -203,3 +203,25 @@ IMPORTANT RULES
 Abstract for analysis:
 
 [PASTE ABSTRACT HERE]
+
+mw-ai-lab/
+├── README.md
+├── prompts/
+│   ├── csr_efficacy.md
+│   ├── csr_safety.md
+│   ├── tlf_summary.md
+│   ├── evidence_extraction.md
+│   └── verification.md
+├── workflows/
+│   ├── csr_section_workflow.md
+│   ├── tlf_workflow.md
+│   └── model_comparison_workflow.md
+├── benchmarks/
+│   ├── tasks.md
+│   ├── scoring_rubric.md
+│   └── results_log.md
+├── data/
+│   ├── sample_inputs/
+│   └── sample_outputs/
+└── scripts/
+    └── numeric_checker.py
