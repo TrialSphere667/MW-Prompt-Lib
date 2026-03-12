@@ -1,0 +1,22 @@
+# MW AI Lab
+
+A private experimentation repository for regulatory medical writing AI workflows.
+
+## Purpose
+This repo is used to organize:
+- prompt libraries for common MW tasks
+- workflow templates for evidence extraction, drafting, and verification
+- benchmark tasks for comparing model performance
+- small utility scripts for evaluating outputs
+
+## Initial focus areas
+- TLF narrative generation
+- CSR efficacy/safety drafting
+- evidence extraction
+- AI output verification
+
+## Structure
+- `prompts/` task-specific prompt templates
+- `workflows/` step-by-step AI workflows
+- `benchmarks/` benchmark tasks and scoring logs
+- `scripts/` small helper utilities
