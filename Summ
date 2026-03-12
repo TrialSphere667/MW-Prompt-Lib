@@ -1,0 +1,59 @@
+# TLF Narrative Summary Prompt
+
+## Task
+Generate a concise regulatory-style narrative summary from a Table, Listing, or Figure (TLF).
+
+## Purpose
+Medical writers frequently convert statistical tables into narrative text for CSR sections such as efficacy and safety results.
+
+This prompt standardizes that process while minimizing hallucinations.
+
+---
+
+## Prompt Template
+
+You are assisting with regulatory medical writing.
+
+Summarize the results shown in the table below.
+
+### Rules
+
+1. Preserve all numerical values exactly as written.
+2. Do not infer or invent information not present in the table.
+3. Do not interpret statistical significance unless explicitly stated.
+4. If information is unclear or missing, state this explicitly.
+5. Use concise regulatory writing style appropriate for a clinical study report.
+
+### Input Table
+
+[INSERT TABLE HERE]
+
+### Output Format
+
+Write one concise paragraph summarizing the key results.
+
+Focus on:
+
+- treatment comparisons
+- response rates or key outcomes
+- notable differences between groups
+- important safety findings if present
+
+Avoid speculation or interpretation beyond the table data.
+
+---
+
+## Example Output
+
+Drug A demonstrated a higher response rate compared with placebo (34.2% vs 12.1%). The difference between treatment groups was consistent across the primary efficacy population. No additional efficacy signals were observed in the remaining secondary endpoints.
+
+---
+
+## Evaluation Criteria
+
+When benchmarking models, evaluate outputs based on:
+
+- numerical fidelity
+- completeness of key results
+- hallucination risk
+- regulatory tone
