@@ -1,0 +1,45 @@
+from scoring_rubric import BenchmarkScore
+
+
+def scorecard_to_markdown(score: BenchmarkScore) -> str:
+    score.validate()
+    return f"""# Benchmark Result
+
+- **Task:** {score.task_name}
+- **Model:** {score.model_name}
+- **Prompt version:** {score.prompt_version}
+- **Table type:** {score.table_type}
+
+## Scores
+- **Numeric fidelity:** {score.numeric_fidelity}/4
+- **Faithfulness:** {score.faithfulness}/2
+- **Completeness:** {score.completeness}/2
+- **Tone and clarity:** {score.tone_clarity}/1
+- **Domain fit:** {score.domain_fit}/1
+
+## Total
+**{score.total_score()}/10**
+
+## Interpretation
+{score.interpretation()}
+
+## Notes
+{score.notes or "None"}
+"""
+
+
+if __name__ == "__main__":
+    example = BenchmarkScore(
+        task_name="TLF Narrative Summary",
+        model_name="GPT",
+        prompt_version="v1",
+        table_type="PK",
+        numeric_fidelity=3,
+        faithfulness=2,
+        completeness=1,
+        tone_clarity=1,
+        domain_fit=1,
+        notes="Missed one secondary parameter but otherwise accurate.",
+    )
+
+    print(scorecard_to_markdown(example))
