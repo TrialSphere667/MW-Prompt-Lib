@@ -1,0 +1,134 @@
+# TLF Narrative Summary Prompt (Generalized for Multiple TLF Types)
+
+## Task
+Generate a concise regulatory-style narrative summary from a Table, Listing, or Figure (TLF).
+
+---
+
+## Purpose
+
+Medical writers frequently convert statistical tables into narrative text for Clinical Study Report (CSR) sections including efficacy, safety, pharmacokinetics (PK), pharmacodynamics (PD), biomarker analyses, and demographic summaries.
+
+Because TLF structures vary across domains, this prompt first identifies the table type and then applies the appropriate summarization strategy while maintaining strict numerical fidelity.
+
+---
+
+# Instructions
+
+You are assisting with regulatory medical writing.
+
+Your task is to summarize the results shown in the table below in concise Clinical Study Report (CSR) narrative style.
+
+Follow the process below.
+
+---
+
+# Step 1 — Identify Table Type
+
+First determine the most likely type of table based on the variables reported.
+
+Possible categories include:
+
+- efficacy
+- safety
+- pharmacokinetics (PK)
+- pharmacodynamics (PD)
+- biomarker analysis
+- demographics
+- other clinical outcomes
+
+Use the table content to determine the most appropriate category.
+
+Do NOT include the category in the final output.
+
+---
+
+# Step 2 — Identify Key Variables
+
+Identify the key variables reported in the table, such as:
+
+- treatment arms
+- endpoints or analytes
+- event categories
+- summary statistics
+- counts or percentages
+- pharmacokinetic parameters (e.g., Cmax, AUC, Tmax, t½)
+- biomarker values or change from baseline
+
+Focus on variables that are most relevant for summarizing study results.
+
+---
+
+# Step 3 — Generate Narrative Summary
+
+Write a concise regulatory-style summary of the table.
+
+### General Rules
+
+1. Preserve all numerical values exactly as written.
+2. Do not change rounding or formatting of numbers.
+3. If numerator/denominator values are reported (n/N), preserve them.
+4. Do not infer or invent information not present in the table.
+5. Do not interpret clinical significance or trends unless explicitly reported.
+6. Only describe statistical significance if p-values or confidence intervals are provided.
+7. Focus on the primary analysis population unless otherwise specified.
+8. Ignore footnotes unless they materially affect interpretation.
+9. Use neutral, objective regulatory writing style.
+
+---
+
+# Domain-Specific Emphasis
+
+### If the table represents efficacy results:
+Focus on treatment comparisons and key endpoint outcomes.
+
+### If the table represents safety results:
+Focus on incidence rates, most common events, and differences between treatment groups.
+
+### If the table represents PK parameters:
+Summarize key PK parameters such as Cmax, Tmax, AUC, and half-life across treatment groups.
+
+### If the table represents PD or biomarker data:
+Focus on biomarker levels, change from baseline, or responder proportions.
+
+### If the table represents demographics:
+Summarize key characteristics of the study population.
+
+---
+
+# Input Table
+
+[INSERT TABLE HERE]
+
+---
+
+# Output Format
+
+Write **one concise paragraph (3–5 sentences)** summarizing the key findings.
+
+Focus on:
+
+- key numerical results
+- treatment group comparisons (if applicable)
+- notable differences or patterns explicitly shown in the table
+
+Avoid speculation or interpretation beyond the reported data.
+
+---
+
+# Example Output (Safety Table)
+
+The incidence of treatment-emergent adverse events was higher in the Drug A group compared with placebo (45/120 [37.5%] vs 30/118 [25.4%]). The most frequently reported events were headache and nausea. Serious adverse events occurred in 3/120 (2.5%) participants receiving Drug A and 2/118 (1.7%) participants receiving placebo.
+
+---
+
+# Evaluation Criteria
+
+When benchmarking model performance, evaluate outputs based on:
+
+- numerical fidelity
+- completeness of key results
+- hallucination risk
+- regulatory tone and clarity
+- preservation of denominators and percentages
+- correct interpretation of table type
