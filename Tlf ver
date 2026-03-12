@@ -1,0 +1,173 @@
+# TLF Verification Prompt
+
+## Task
+Verify whether a generated regulatory-style narrative summary is fully supported by the source Table, Listing, or Figure (TLF).
+
+---
+
+## Purpose
+
+This prompt is used after AI-generated drafting to evaluate whether the narrative accurately reflects the source TLF.
+
+It is designed to identify:
+
+- unsupported claims
+- numeric inconsistencies
+- overinterpretation
+- omission of clearly material findings
+- incorrect emphasis for the apparent table type
+
+This prompt is intended for quality control and hallucination detection in regulatory medical writing workflows.
+
+---
+
+# Prompt Template
+
+You are assisting with regulatory medical writing quality control.
+
+Your task is to verify whether the generated narrative below is fully supported by the source table.
+
+Use a conservative review standard.
+
+If a statement is not clearly supported by the table, flag it for review rather than assuming it is correct.
+
+---
+
+## Inputs
+
+### Source Table
+[INSERT SOURCE TABLE HERE]
+
+### Generated Narrative
+[INSERT GENERATED NARRATIVE HERE]
+
+---
+
+# Instructions
+
+## Step 1 — Identify the likely table type
+
+Based on the source table, determine the most likely category, such as:
+
+- efficacy
+- safety
+- pharmacokinetics (PK)
+- pharmacodynamics (PD)
+- biomarker analysis
+- demographics
+- other clinical outcomes
+
+Do NOT include this reasoning in the final narrative text, but use it to judge whether the summary emphasizes the correct types of results.
+
+---
+
+## Step 2 — Review sentence by sentence
+
+For each sentence in the generated narrative:
+
+1. Determine whether it is:
+   - **Supported**
+   - **Partially Supported**
+   - **Unsupported**
+   - **Numeric Mismatch**
+
+2. Quote or summarize the relevant supporting evidence from the table when available.
+
+3. Check whether all numerical values in the sentence exactly match the source table.
+
+4. Flag any of the following:
+   - invented or inferred claims
+   - unsupported interpretation
+   - implied statistical significance not shown in the table
+   - incorrect treatment comparisons
+   - missing or altered denominators
+   - incorrect rounding or percentages
+   - clinically interpretive wording not supported by the table
+
+---
+
+## Step 3 — Assess overall summary quality
+
+After the sentence-level review, provide an overall assessment of:
+
+- whether the narrative is broadly reliable
+- whether the main findings are represented accurately
+- whether the emphasis is appropriate for the table type
+- whether human revision is needed before use
+
+---
+
+# Rules
+
+1. Use only the source table as the basis for verification.
+2. Do not assume information that is not explicitly present.
+3. Treat ambiguous support as **needs review**.
+4. Do not silently rewrite the narrative.
+5. Do not add new scientific interpretation.
+6. Only consider statistical significance supported if explicitly shown in the table.
+7. Preserve a neutral and conservative review standard.
+
+---
+
+# Output Format
+
+## Sentence-Level Verification
+
+For each sentence, provide:
+
+- **Sentence:** [copy the sentence exactly]
+- **Support Status:** Supported / Partially Supported / Unsupported / Numeric Mismatch
+- **Evidence:** [quote or summarize the relevant table content]
+- **Numeric Check:** Pass / Fail / Not Applicable
+- **Issue Type:** None / Unsupported Claim / Numeric Error / Overinterpretation / Missing Context / Wrong Emphasis
+- **Recommended Action:** Keep / Revise / Remove / Human Review
+
+---
+
+## Overall Assessment
+
+Provide:
+
+- **Overall Reliability:** High / Moderate / Low
+- **Main Issues Identified:** [brief summary]
+- **Is Human Revision Needed?:** Yes / No
+- **Comments:** [brief summary of why]
+
+---
+
+# Example Output
+
+## Sentence-Level Verification
+
+- **Sentence:** Drug A demonstrated a higher response rate than placebo (34/100 [34.0%] vs 12/99 [12.1%]).
+- **Support Status:** Supported
+- **Evidence:** The table reports Drug A response rate as 34/100 (34.0%) and placebo as 12/99 (12.1%).
+- **Numeric Check:** Pass
+- **Issue Type:** None
+- **Recommended Action:** Keep
+
+- **Sentence:** The treatment effect was clinically meaningful across all secondary endpoints.
+- **Support Status:** Unsupported
+- **Evidence:** The table does not report clinical meaningfulness or all secondary endpoints.
+- **Numeric Check:** Not Applicable
+- **Issue Type:** Overinterpretation
+- **Recommended Action:** Remove
+
+## Overall Assessment
+
+- **Overall Reliability:** Moderate
+- **Main Issues Identified:** One sentence is fully supported; one sentence contains unsupported interpretive language.
+- **Is Human Revision Needed?:** Yes
+- **Comments:** The narrative contains an unsupported interpretation that should be removed before use.
+
+---
+
+## Evaluation Criteria
+
+When benchmarking verification performance, assess the output based on:
+
+- accuracy of support classification
+- detection of numeric inconsistencies
+- detection of unsupported interpretation
+- usefulness of recommended actions
+- appropriateness of conservative review standard
