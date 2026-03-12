@@ -1,0 +1,41 @@
+# Results — Case 001
+
+## Claude
+
+Output:
+Drug A demonstrated a higher response rate compared with placebo (34/100 [34.0%] vs 12/99 [12.1%]).
+
+Evaluation:
+- Numerical fidelity: excellent
+- Completeness: high
+- Hallucination risk: low
+
+Score: 9/10
+
+---
+
+## GPT
+
+Output:
+The response rate was higher in the Drug A group than placebo (34.0% vs 12.1%).
+
+Evaluation:
+- Numerical fidelity: good
+- Completeness: moderate
+- Hallucination risk: low
+
+Score: 8/10
+
+---
+
+## Gemini
+
+Output:
+Drug A showed improved response relative to placebo.
+
+Evaluation:
+- Numerical fidelity: moderate
+- Completeness: low
+- Hallucination risk: moderate
+
+Score: 6/10
