@@ -1,0 +1,93 @@
+import re
+from dataclasses import dataclass, asdict
+from typing import List, Set
+
+
+# Matches:
+# - integers: 12
+# - decimals: 34.2
+# - percentages: 12.1%
+# - ratios: 34/100
+# - p-values like p=0.02 or p < 0.05
+NUMBER_PATTERN = re.compile(
+    r"""
+    \b\d+/\d+\b              # ratios like 34/100
+    |                        # or
+    \bp\s*[=<>]\s*\d*\.?\d+\b # p-values like p=0.02 or p < 0.05
+    |                        # or
+    \b\d+\.\d+%?\b           # decimals with optional %
+    |                        # or
+    \b\d+%?\b                # integers with optional %
+    """,
+    re.IGNORECASE | re.VERBOSE,
+)
+
+
+@dataclass
+class NumericComparisonResult:
+    source_numbers: List[str]
+    generated_numbers: List[str]
+    extra_in_generated: List[str]
+    missing_from_generated: List[str]
+    exact_match: bool
+
+
+def normalize_token(token: str) -> str:
+    """Normalize spacing for comparisons."""
+    return re.sub(r"\s+", "", token.strip().lower())
+
+
+def extract_numeric_tokens(text: str) -> List[str]:
+    """Extract numeric-like tokens from text."""
+    matches = NUMBER_PATTERN.findall(text)
+    cleaned = [m.strip() for m in matches if m.strip()]
+    return cleaned
+
+
+def compare_numeric_tokens(source_text: str, generated_text: str) -> NumericComparisonResult:
+    """Compare numeric tokens between source and generated text."""
+    source_tokens = extract_numeric_tokens(source_text)
+    generated_tokens = extract_numeric_tokens(generated_text)
+
+    source_set: Set[str] = {normalize_token(t) for t in source_tokens}
+    generated_set: Set[str] = {normalize_token(t) for t in generated_tokens}
+
+    extra_in_generated = sorted(generated_set - source_set)
+    missing_from_generated = sorted(source_set - generated_set)
+
+    return NumericComparisonResult(
+        source_numbers=source_tokens,
+        generated_numbers=generated_tokens,
+        extra_in_generated=extra_in_generated,
+        missing_from_generated=missing_from_generated,
+        exact_match=(len(extra_in_generated) == 0 and len(missing_from_generated) == 0),
+    )
+
+
+def print_report(result: NumericComparisonResult) -> None:
+    print("=== Numeric Consistency Report ===")
+    print(f"Source numbers: {result.source_numbers}")
+    print(f"Generated numbers: {result.generated_numbers}")
+    print(f"Extra in generated: {result.extra_in_generated}")
+    print(f"Missing from generated: {result.missing_from_generated}")
+    print(f"Exact match: {result.exact_match}")
+
+
+if __name__ == "__main__":
+    # Example source table text
+    source = """
+    Drug A: 34/100 (34.0%)
+    Placebo: 12/99 (12.1%)
+    p=0.02
+    Serious adverse events: 3/120 (2.5%) vs 2/118 (1.7%)
+    """
+
+    # Example generated narrative
+    generated = """
+    Drug A demonstrated a higher response rate than placebo (34/100 [34.0%] vs 12/99 [12.1%]).
+    The difference was statistically significant (p=0.02).
+    Serious adverse events occurred in 3/120 (2.5%) participants receiving Drug A and 2/118 (1.7%) participants receiving placebo.
+    """
+
+    result = compare_numeric_tokens(source, generated)
+    print_report(result)
