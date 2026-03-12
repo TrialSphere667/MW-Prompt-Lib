@@ -1,0 +1,94 @@
+from dataclasses import dataclass, asdict
+from typing import Dict
+
+
+@dataclass
+class BenchmarkScore:
+    task_name: str
+    model_name: str
+    prompt_version: str
+    table_type: str
+    numeric_fidelity: int  # 0-4
+    faithfulness: int      # 0-2
+    completeness: int      # 0-2
+    tone_clarity: int      # 0-1
+    domain_fit: int        # 0-1
+    notes: str = ""
+
+    def total_score(self) -> int:
+        return (
+            self.numeric_fidelity
+            + self.faithfulness
+            + self.completeness
+            + self.tone_clarity
+            + self.domain_fit
+        )
+
+    def interpretation(self) -> str:
+        total = self.total_score()
+        if total >= 9:
+            return "Strong output, likely usable with minor edits"
+        if total >= 7:
+            return "Acceptable draft, requires review and revision"
+        if total >= 5:
+            return "Limited utility, substantial revision required"
+        return "Unreliable output, not suitable for drafting use"
+
+    def validate(self) -> None:
+        ranges = {
+            "numeric_fidelity": (self.numeric_fidelity, 0, 4),
+            "faithfulness": (self.faithfulness, 0, 2),
+            "completeness": (self.completeness, 0, 2),
+            "tone_clarity": (self.tone_clarity, 0, 1),
+            "domain_fit": (self.domain_fit, 0, 1),
+        }
+
+        for field_name, (value, low, high) in ranges.items():
+            if not (low <= value <= high):
+                raise ValueError(
+                    f"{field_name} must be between {low} and {high}, got {value}"
+                )
+
+    def to_dict(self) -> Dict[str, object]:
+        self.validate()
+        data = asdict(self)
+        data["total_score"] = self.total_score()
+        data["interpretation"] = self.interpretation()
+        return data
+
+
+def print_scorecard(score: BenchmarkScore) -> None:
+    score.validate()
+    print("=== Benchmark Scorecard ===")
+    print(f"Task: {score.task_name}")
+    print(f"Model: {score.model_name}")
+    print(f"Prompt version: {score.prompt_version}")
+    print(f"Table type: {score.table_type}")
+    print()
+    print(f"Numeric fidelity: {score.numeric_fidelity}/4")
+    print(f"Faithfulness: {score.faithfulness}/2")
+    print(f"Completeness: {score.completeness}/2")
+    print(f"Tone and clarity: {score.tone_clarity}/1")
+    print(f"Domain fit: {score.domain_fit}/1")
+    print()
+    print(f"Total score: {score.total_score()}/10")
+    print(f"Interpretation: {score.interpretation()}")
+    if score.notes:
+        print(f"Notes: {score.notes}")
+
+
+if __name__ == "__main__":
+    example = BenchmarkScore(
+        task_name="TLF Narrative Summary",
+        model_name="Claude",
+        prompt_version="v1",
+        table_type="safety",
+        numeric_fidelity=4,
+        faithfulness=2,
+        completeness=2,
+        tone_clarity=1,
+        domain_fit=1,
+        notes="Preserved all values and used appropriate safety-focused language.",
+    )
+
+    print_scorecard(example)
