@@ -1,0 +1,72 @@
+# TLF AI Workflow
+
+## Purpose
+
+This workflow describes how to use the TLF summarization and verification prompts to generate, review, and benchmark AI-assisted narrative summaries for regulatory medical writing tasks.
+
+This workflow is intended for structured experimentation across models such as Claude, GPT, and Gemini.
+
+---
+
+## Scope
+
+This workflow can be used for TLFs related to:
+
+- efficacy
+- safety
+- pharmacokinetics (PK)
+- pharmacodynamics (PD)
+- biomarkers
+- demographics
+- other clinical outcomes
+
+---
+
+## Inputs
+
+Required inputs:
+
+1. **Source TLF**
+   - the original table, listing, or figure text
+   - copied directly from the source or transcribed carefully
+
+2. **Prompt file**
+   - `prompts/tlf_summary.md`
+
+3. **Verification prompt file**
+   - `prompts/tlf_verification.md`
+
+4. **Scoring rubric**
+   - `benchmarks/scoring_rubric.md`
+
+Optional supporting inputs:
+
+- notes on table type
+- known key findings
+- benchmark case file from `benchmarks/cases/`
+
+---
+
+## Outputs
+
+This workflow produces:
+
+1. AI-generated summary draft(s)
+2. verification audit(s)
+3. benchmark score(s)
+4. logged results in `benchmarks/results/`
+
+---
+
+## Workflow Overview
+
+```text
+Source TLF
+↓
+Generate narrative summary
+↓
+Verify summary against source TLF
+↓
+Score output using rubric
+↓
+Log results and observations
