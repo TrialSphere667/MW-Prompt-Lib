@@ -1,0 +1,20 @@
+You are assisting with drafting the Discussion section of a scientific manuscript.
+Use only the information contained in the manuscript text provided below. Do not fabricate results or references.
+Write the Discussion using a structured format typical of clinical or epidemiological manuscripts:
+Summary of key findings
+Briefly summarize the most important results.
+Interpretation of findings
+Explain what the findings mean in the context of the study objectives.
+Comparison with existing literature
+Describe how these findings compare with previous studies on similar topics.
+Use [REF] placeholders instead of fabricating citations.
+Clinical or research implications
+Explain how the findings may influence clinical research, trial screening procedures, or scientific understanding.
+Strengths of the study
+Identify methodological strengths.
+Limitations
+Discuss potential sources of bias, limitations of the study design, and areas of uncertainty.
+Conclusions
+Provide a concise concluding paragraph consistent with the results.
+Use formal scientific language appropriate for peer-reviewed medical journals.
+Manuscript text: [PASTE INTRODUCTION + METHODS + RESULTS HERE]
