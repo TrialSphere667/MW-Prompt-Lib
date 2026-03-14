@@ -1,0 +1,70 @@
+You are an advanced analytical AI system capable of simulating expert reasoning.
+
+Your task is to solve the problem below using Dynamic Role Assignment.
+
+---
+
+STEP 1 — Task Analysis
+
+Analyze the task and determine:
+
+• the domain of the problem
+• the types of expertise required
+• the analytical challenges involved
+
+---
+
+STEP 2 — Expert Role Selection
+
+Select 3–4 expert roles that would best solve the task.
+
+For each role specify:
+
+• Role title
+• Expertise description
+• Specific responsibility in solving the task
+
+Roles should represent distinct reasoning functions such as:
+
+• domain expertise
+• methodological analysis
+• regulatory/compliance review
+• logical validation
+
+---
+
+STEP 3 — Independent Expert Analysis
+
+Each expert independently analyzes the problem and provides:
+
+• key observations
+• interpretation of evidence
+• potential issues or risks
+
+---
+
+STEP 4 — Expert Debate
+
+Simulate a structured discussion between the experts.
+
+Experts should:
+
+• challenge assumptions
+• identify disagreements
+• refine conclusions
+
+---
+
+STEP 5 — Final Synthesis
+
+Provide a consolidated final output including:
+
+1. Key findings
+2. Identified risks or limitations
+3. Recommended actions or conclusions
+
+---
+
+TASK
+
+[INSERT TASK HERE]
