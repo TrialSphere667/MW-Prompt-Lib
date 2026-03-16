@@ -4,29 +4,33 @@
 
 Analyze a protocol amendment change and identify all protocol domains and sections that may be affected, including both direct and indirect impacts.
 
-This prompt is designed to identify potential ripple effects across the protocol before revision suggestions are generated.
+This prompt uses a protocol dependency map as supporting guidance to improve impact discovery.
+
+It is intended to identify likely review areas before protocol passage retrieval and revision generation.
 
 ---
 
 # Purpose
 
-Protocol amendments often affect multiple sections beyond the obvious primary change.
+Protocol amendments often affect multiple protocol sections beyond the obvious primary change.
 
 For example:
 
-- eligibility changes may affect study population, safety monitoring, and analysis populations
+- eligibility changes may affect study population, screening procedures, and analysis populations
 - endpoint changes may affect objectives, estimands, and statistical methods
 - visit schedule changes may affect assessments, procedures, and safety monitoring
 
-This prompt helps identify those potential dependencies so that the medical writer can review the correct areas of the protocol.
+This prompt helps identify those dependencies systematically so that the medical writer can review the correct areas of the protocol.
 
 ---
 
 # Inputs
 
 ### Amendment Change
-
 [INSERT AMENDMENT CHANGE HERE]
+
+### Protocol Dependency Guidance
+[INSERT PROTOCOL DEPENDENCY GUIDANCE HERE]
 
 ---
 
@@ -50,66 +54,40 @@ Possible categories include:
 - investigational product administration
 - administrative or operational updates
 
----
-
-## Step 2 — Identify directly affected domains
-
-List the protocol domains most directly related to the amendment.
-
-These domains represent the sections most likely to require textual revision.
+If the amendment could plausibly belong to more than one category, list the primary category and any secondary candidate categories.
 
 ---
 
-## Step 3 — Identify potential secondary impacts
+## Step 2 — Use the dependency guidance
 
-Determine which additional protocol areas may require review because of the change.
+Use the protocol dependency guidance provided to identify:
 
-Examples:
+1. the most directly affected protocol domains
+2. likely secondary protocol domains that may require review because of downstream dependencies
 
-Eligibility changes may affect:
-- exclusion criteria
-- study population description
-- analysis populations
-- safety monitoring
-
-Endpoint changes may affect:
-- objectives
-- estimands
-- statistical analysis methods
-
-Visit schedule changes may affect:
-- assessments
-- procedures
-- safety monitoring
+Do not assume every dependency is impacted, but flag them as review candidates where appropriate.
 
 ---
 
-## Step 4 — Suggest likely protocol sections
+## Step 3 — Recommend protocol review areas
 
-Based on the amendment type, identify protocol sections that the medical writer should review.
+Based on the amendment change and the dependency guidance, identify:
 
-Examples may include:
+- directly affected protocol sections or domains
+- secondary sections or domains to review
+- areas where impact is uncertain but worth checking
 
-- Inclusion Criteria
-- Exclusion Criteria
-- Study Population
-- Statistical Analysis Populations
-- Safety Monitoring
-- Study Procedures
-- Endpoints
-- Objectives
-- Schedule of Assessments
-
-If the exact section titles are unknown, provide general section categories.
+If exact section titles are unknown, provide general section categories.
 
 ---
 
 # Rules
 
 1. Do not propose revised protocol text.
-2. Focus only on identifying impacted domains and sections.
-3. If uncertain, flag areas for review rather than assuming changes.
-4. Prioritize completeness over precision when identifying possible ripple effects.
+2. Focus only on identifying impacted domains and recommended review areas.
+3. Use the dependency guidance as a structured aid, not as a rigid rule.
+4. If uncertain, flag the area for review rather than assuming it is unaffected.
+5. Prioritize completeness over narrow precision for secondary impacts.
 
 ---
 
@@ -117,8 +95,8 @@ If the exact section titles are unknown, provide general section categories.
 
 ## Amendment Classification
 
-Primary Change Category:  
-[category]
+- **Primary Change Category:** [category]
+- **Possible Secondary Categories:** [list or "None"]
 
 ---
 
@@ -138,7 +116,7 @@ Primary Change Category:
 
 ---
 
-## Protocol Sections Recommended for Review
+## Recommended Protocol Areas for Review
 
 1. Section title or category
 2. Section title or category
@@ -149,7 +127,11 @@ Primary Change Category:
 
 ## Rationale
 
-Brief explanation of why these areas may be impacted by the amendment.
+Provide a short explanation of:
+
+- why the primary category was chosen
+- why the listed secondary review areas may be relevant
+- where the impact remains uncertain
 
 ---
 
@@ -159,39 +141,52 @@ Brief explanation of why these areas may be impacted by the amendment.
 
 "Inclusion criteria updated to allow patients with mild renal impairment."
 
+### Protocol Dependency Guidance
+
+Eligibility criteria may affect:
+- inclusion criteria
+- exclusion criteria
+- study population
+- screening procedures
+- statistical analysis populations
+- safety monitoring
+
 ---
 
-### Amendment Classification
+## Amendment Classification
 
-Primary Change Category: Eligibility Criteria
+- **Primary Change Category:** Eligibility Criteria
+- **Possible Secondary Categories:** Study Population
 
 ---
 
-### Directly Affected Domains
+## Directly Affected Domains
 
 - Inclusion Criteria
 - Exclusion Criteria
 
 ---
 
-### Potential Secondary Impact Domains
+## Potential Secondary Impact Domains
 
-- Study Population Description
-- Safety Monitoring
+- Study Population
+- Screening Procedures
 - Statistical Analysis Populations
+- Safety Monitoring
 
 ---
 
-### Protocol Sections Recommended for Review
+## Recommended Protocol Areas for Review
 
 1. Inclusion Criteria
 2. Exclusion Criteria
 3. Study Population
-4. Safety Monitoring
-5. Analysis Populations
+4. Screening Procedures
+5. Safety Monitoring
+6. Analysis Populations
 
 ---
 
-### Rationale
+## Rationale
 
-Changes to eligibility criteria alter the characteristics of the enrolled population, which may influence safety monitoring procedures and statistical population definitions.
+The amendment directly changes subject eligibility, so inclusion and exclusion sections are the primary review areas. Based on dependency guidance, the enrolled population, related screening procedures, downstream analysis populations, and safety-related monitoring language may also need review.
