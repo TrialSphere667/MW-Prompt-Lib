@@ -1,60 +1,113 @@
-Assume the roles of the following experts:
+Yes — it can, but it depends on how the spreadsheet is pasted and how the prompt processes it. The issue is not simply “large input”; it’s how the model is instructed to reason about multiple rows. The good news is that you can paste the whole sheet without losing quality if you structure the prompt correctly.
+The experts would recommend row-wise processing inside a single prompt. That keeps the reasoning isolated per change while still letting you paste the full spreadsheet once.
+Why naïvely pasting the spreadsheet can reduce quality
+If you simply paste the spreadsheet and say:
+“Analyze these changes and generate descriptions and rationales.”
+the model may:
+• blend multiple changes together
+• reuse rationale across rows
+• infer relationships between unrelated changes
+• miss rows or produce uneven output
+This happens because the model treats the spreadsheet as one reasoning problem instead of many small problems.
+The correct approach: Row-wise processing
+Instead, you instruct the model to treat each row independently.
+Conceptually:
+Copy code
 
+Row 1 → analyze → output
+Row 2 → analyze → output
+Row 3 → analyze → output
+Even though the spreadsheet is pasted once.
+This is essentially a Map-style workflow applied within one prompt.
+Recommended prompt structure for your spreadsheet
+You can paste the entire spreadsheet under this prompt.
+Writing
+Assume the roles of the following experts:
 • Clinical Scientist
 • Regulatory Medical Writer
 • Protocol Operations Reviewer
 • Reasoning Validator
-
-Objective:
-Analyze proposed protocol amendment changes and generate text for a protocol amendment "Summary of Changes" table.
-
+Objective: Analyze proposed protocol amendment changes and generate text for a protocol amendment "Summary of Changes" table.
 Each change should produce:
-
-1. A concise Description of Change (Column 2 of the table)
-2. A brief Rationale for Change (Column 3 of the table)
-
+A concise Description of Change (Column 2 of the table)
+A brief Rationale for Change (Column 3 of the table)
 Important instructions:
-
 • Treat each row independently.
 • Do not combine or compare rows.
 • Do not assume relationships between changes unless explicitly stated.
 • Use only the information provided in the row.
 • If rationale is not explicit, provide a cautious, general explanation.
-
----
-
 PROCESSING INSTRUCTIONS
-
 You will receive a spreadsheet containing multiple proposed protocol changes.
-
 Process the spreadsheet row by row.
-
 For each row:
-
 STEP 1
 Interpret the proposed change.
-
 STEP 2
 Generate a concise Description of Change suitable for a protocol amendment Summary of Changes table.
-
 STEP 3
 Generate a brief Rationale explaining the likely purpose of the change.
-
 Keep both outputs concise and regulatory-appropriate.
-
----
-
 OUTPUT FORMAT
-
 Return a structured table with the following columns:
-
 Row Number
 Original Change Description
 Description of Change
 Rationale for Change
-
----
-
 SPREADSHEET INPUT
-
 [PASTE THE EXCEL ROWS HERE]
+Example input (pasted spreadsheet)
+Copy code
+
+Row | Change Description
+1 | Update visit schedule to add Week 52 follow-up visit
+2 | Modify inclusion criteria to require HbA1c ≤10%
+3 | Add ECG assessment at Screening visit
+4 | Clarify wording of primary endpoint definition
+Example output
+Row
+Original Change
+Description of Change
+Rationale
+1
+Add Week 52 visit
+A Week 52 follow-up visit was added to the study visit schedule.
+The additional follow-up visit was added to allow continued assessment of study outcomes and participant status.
+2
+Modify HbA1c criterion
+The inclusion criteria were modified to require HbA1c ≤10%.
+The modification clarifies the allowable baseline glycemic range for participant eligibility.
+3
+Add ECG assessment
+An ECG assessment was added to the Screening visit procedures.
+The ECG assessment was added to enhance baseline cardiovascular evaluation of participants.
+4
+Clarify endpoint wording
+The wording of the primary endpoint definition was clarified.
+The clarification was implemented to improve the precision and interpretation of the primary endpoint.
+Practical size limits
+For this task the experts recommend:
+Rows
+Expected quality
+10–30 rows
+excellent
+30–60 rows
+usually fine
+60–100 rows
+may start degrading
+Most protocol amendments are well within this range, so you should be fine.
+One small trick that improves output a lot
+Before pasting the spreadsheet, convert it to simple text rows like this:
+Copy code
+
+1. Update visit schedule to add Week 52 follow-up visit
+2. Modify inclusion criteria to require HbA1c ≤10%
+3. Add ECG assessment at Screening visit
+4. Clarify wording of primary endpoint definition
+LLMs read this much more reliably than pasted Excel formatting.
+A very useful next step for your workflow
+Once you generate Columns 2 and 3, the experts would recommend a second prompt that:
+• scans the changes
+• predicts which protocol sections are likely affected
+This can help you fill Column 1 (Section number/name) much faster when preparing the amendment.
+If you'd like, I can show you a very accurate prompt specifically for identifying affected protocol sections, which regulatory writers have found extremely useful.
