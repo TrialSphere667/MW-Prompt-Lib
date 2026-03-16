@@ -1,0 +1,216 @@
+# Protocol Amendment Integration Workflow
+
+## Purpose
+
+Protocol amendments often require identifying and updating multiple sections of a Clinical Study Protocol (CSP). Because amendment descriptions may not directly reference all affected sections, this workflow uses a structured process to:
+
+1. classify the amendment change
+2. identify relevant protocol passages
+3. propose targeted revisions
+4. identify possible secondary impacts
+
+This approach reduces manual scanning of the entire protocol and focuses review on the most relevant sections.
+
+---
+
+# Workflow Overview
+
+Amendment Change
+↓
+Change Classification
+↓
+Protocol Passage Retrieval
+↓
+Revision Suggestion
+↓
+Secondary Impact Identification
+↓
+Human MW Review
+
+---
+
+# Step 1 — Extract Amendment Change
+
+Input source:
+- Amendment summary of changes table (Excel)
+
+Extract the specific change description for a single amendment item.
+
+Example input:
+
+Amendment Change:
+"Inclusion criteria updated to allow patients with mild renal impairment."
+
+This change description becomes the primary input for downstream analysis.
+
+---
+
+# Step 2 — Classify Amendment Type
+
+Use the amendment description to determine the primary change category.
+
+Typical categories include:
+
+- study objectives
+- study design
+- eligibility criteria
+- treatment regimen
+- endpoint definitions
+- visit schedule / assessments
+- safety monitoring
+- statistical analysis
+- sample size / population
+- administrative changes
+
+This classification helps narrow the search space for affected protocol sections.
+
+Example output:
+
+Primary Change Category: Eligibility Criteria  
+Potential Secondary Impact Domains:
+- Exclusion Criteria
+- Study Population
+- Safety Monitoring
+
+---
+
+# Step 3 — Retrieve Candidate Protocol Passages
+
+Rather than reviewing the entire protocol, identify likely affected passages.
+
+Sources for retrieval may include:
+
+- section headers
+- paragraph-level protocol text
+- keyword or semantic search
+- manual MW identification of likely sections
+
+Example candidate passages:
+
+Section 5.1 Inclusion Criteria  
+Section 5.2 Exclusion Criteria  
+Section 9.1 Study Population  
+
+These passages become inputs for targeted revision analysis.
+
+---
+
+# Step 4 — Run Amendment Assistant Prompt
+
+Use:
+
+prompts/protocol_amendment_assistant.md
+
+Inputs:
+
+Amendment Change  
+Candidate Protocol Passages
+
+The prompt performs:
+
+- amendment classification validation
+- passage relevance assessment
+- suggested revisions for affected text
+- identification of potential secondary impacts
+
+---
+
+# Step 5 — Review Suggested Revisions
+
+For each candidate passage, review the model output:
+
+Impact Status:
+- Directly Affected
+- Possibly Affected
+- Not Affected
+
+If revisions are suggested:
+
+1. verify alignment with amendment description
+2. ensure regulatory writing tone is preserved
+3. confirm no unsupported changes were introduced
+
+---
+
+# Step 6 — Evaluate Secondary Impacts
+
+The model will flag other protocol areas that may require review.
+
+Examples:
+
+Eligibility changes may affect:
+- study population description
+- statistical analysis populations
+- safety monitoring language
+
+Endpoint changes may affect:
+- objectives
+- estimands
+- statistical analysis sections
+
+Review flagged areas even if no immediate revision is proposed.
+
+---
+
+# Step 7 — Human MW Integration
+
+Final protocol updates should always be performed by the medical writer.
+
+Responsibilities include:
+
+- confirming revision accuracy
+- maintaining protocol consistency
+- ensuring downstream sections remain aligned
+- documenting amendment changes appropriately
+
+---
+
+# Best Practices
+
+1. Do not attempt to revise the entire protocol in a single pass.
+2. Use targeted retrieval to identify likely affected passages.
+3. Treat suggested revisions as recommendations rather than final text.
+4. Always perform a secondary impact review.
+
+---
+
+# Example End-to-End Flow
+
+Amendment Change:
+"Inclusion criteria updated to allow mild renal impairment."
+
+↓ Classification
+
+Eligibility Criteria
+
+↓ Candidate Retrieval
+
+Section 5.1 Inclusion Criteria  
+Section 5.2 Exclusion Criteria  
+Section 9.1 Study Population
+
+↓ Prompt Execution
+
+Revision suggestions generated.
+
+↓ Secondary Impact Check
+
+Flagged sections:
+- Safety Monitoring
+- Statistical Analysis Populations
+
+↓ Human MW Review
+
+Protocol updated accordingly.
+
+---
+
+# Relationship to Other Workflows
+
+This workflow complements other modular regulatory writing workflows, including:
+
+- TLF narrative generation
+- TLF verification
+- manuscript drafting workflows
+
+Together these modules support a structured approach to AI-assisted regulatory medical writing.
