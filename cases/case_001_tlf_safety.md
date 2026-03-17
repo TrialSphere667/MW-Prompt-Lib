@@ -1,4 +1,4 @@
-# Benchmark Case 001 — Efficacy TLF
+# Benchmark Case 001 — Safety TLF
 
 ## Task
 Generate a narrative summary of the efficacy table.
