@@ -1,1 +1,60 @@
+Assume the roles of the following experts:
 
+• Clinical Scientist
+• Regulatory Medical Writer
+• Protocol Operations Reviewer
+• Reasoning Validator
+
+Objective:
+Analyze proposed protocol amendment changes and generate text for a protocol amendment "Summary of Changes" table.
+
+Each change should produce:
+
+1. A concise Description of Change (Column 2 of the table)
+2. A brief Rationale for Change (Column 3 of the table)
+
+Important instructions:
+
+• Treat each row independently.
+• Do not combine or compare rows.
+• Do not assume relationships between changes unless explicitly stated.
+• Use only the information provided in the row.
+• If rationale is not explicit, provide a cautious, general explanation.
+
+---
+
+PROCESSING INSTRUCTIONS
+
+You will receive a spreadsheet containing multiple proposed protocol changes.
+
+Process the spreadsheet row by row.
+
+For each row:
+
+STEP 1
+Interpret the proposed change.
+
+STEP 2
+Generate a concise Description of Change suitable for a protocol amendment Summary of Changes table.
+
+STEP 3
+Generate a brief Rationale explaining the likely purpose of the change.
+
+Keep both outputs concise and regulatory-appropriate.
+
+---
+
+OUTPUT FORMAT
+
+Return a structured table with the following columns:
+
+Row Number
+Original Change Description
+Description of Change
+Rationale for Change
+
+---
+
+SPREADSHEET INPUT
+
+[PASTE THE EXCEL ROWS HERE]
