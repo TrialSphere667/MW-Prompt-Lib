@@ -1,0 +1,474 @@
+Right now, the simplest way to run the workflow is to treat it as a local prompt-and-script pipeline.
+
+What you have
+
+You now effectively have:
+
+generator prompts (generation/v1, v2, v3)
+
+evaluator prompts (evaluation/)
+
+Python scripts (scripts/)
+
+gold-standard test cases (gold_standard/)
+
+
+So “running the workflow” means one of three things:
+
+1. Run one study design case through the evaluator
+
+
+2. Run a batch of cases
+
+
+3. Run an A/B test of prompt versions
+
+
+
+
+---
+
+1. Minimum viable way to run it now
+
+Step 1: Put the repo on your machine
+
+Your repo should look roughly like:
+
+clinical_ai_prompts/
+├── generation/
+├── evaluation/
+├── scripts/
+├── gold_standard/
+
+Step 2: Make sure Python is installed
+
+In VS Code terminal or command line:
+
+python --version
+
+or on some systems:
+
+python3 --version
+
+Step 3: Save the scripts
+
+Make sure these files exist:
+
+scripts/csr_study_design_evaluation.py
+
+scripts/batch_evaluate.py
+
+scripts/ab_test_generator_prompts.py
+
+
+And the prompt files exist in the right places.
+
+
+---
+
+2. How to run a single evaluation
+
+This is the easiest starting point.
+
+Step 1: Go into the repo folder
+
+cd clinical_ai_prompts
+
+Step 2: Run the evaluation harness
+
+If your script has the demo block at the bottom, run:
+
+python scripts/csr_study_design_evaluation.py
+
+If your system uses python3:
+
+python3 scripts/csr_study_design_evaluation.py
+
+What happens
+
+It will:
+
+load the scorer prompts
+
+create a sample workflow input
+
+call the dummy client
+
+print a summary
+
+save JSON output
+
+
+Expected output file:
+
+evaluation_outputs/sample_workflow_evaluation.json
+
+Important note
+
+As written, this only works as a wiring test because it uses DummyLLMClient.
+
+That means:
+
+the script structure runs
+
+the JSON parsing runs
+
+the outputs save correctly
+
+
+But it is not yet calling a real model.
+
+
+---
+
+3. What you need to do to make it real
+
+You need to replace DummyLLMClient with your real model call.
+
+That means editing this part:
+
+class DummyLLMClient:
+    def generate(self, prompt: str) -> str:
+        ...
+
+and replacing it with something that actually sends the prompt to the model you want to use.
+
+Conceptually:
+
+class RealLLMClient:
+    def generate(self, prompt: str) -> str:
+        # send prompt to model
+        # return model text output
+        return response_text
+
+So the workflow is already structured, but the model connection layer still needs to be plugged in.
+
+
+---
+
+4. How to run the actual generation workflow manually right now
+
+Before automating fully, you can run it manually.
+
+For V1 or V2
+
+Step 1
+
+Open:
+
+generation/v1/csr_study_design_generator.md or
+
+generation/v2/csr_study_design_generator.md
+
+
+Step 2
+
+Replace:
+
+{{SOURCE_TEXT}}
+
+{{STRUCTURED_ELEMENTS}}
+
+{{TARGET_DETAIL_LEVEL}}
+
+
+with your actual case content.
+
+Step 3
+
+Paste that prompt into your LLM interface.
+
+Step 4
+
+Save the returned paragraph as:
+
+generated_text.txt
+
+
+---
+
+For V3
+
+Step 1: planner
+
+Open:
+
+generation/v3/csr_study_design_planner.md
+
+Fill in:
+
+{{SOURCE_TEXT}}
+
+{{STRUCTURED_ELEMENTS}}
+
+
+Run it in the LLM.
+
+Save the JSON output.
+
+Step 2: generator
+
+Open:
+
+generation/v3/csr_study_design_generator.md
+
+Fill in:
+
+{{STUDY_DESIGN_PLAN}}
+
+{{TARGET_DETAIL_LEVEL}}
+
+
+Run it in the LLM.
+
+Save the returned paragraph as your generated text.
+
+So right now, even without a real Python-connected model client, you can still run the workflow manually.
+
+
+---
+
+5. How to run the scoring manually right now
+
+Once you have a generated paragraph:
+
+Step 1
+
+Open:
+
+evaluation/csr_study_design_generator_scorer.md
+
+Step 2
+
+Fill in:
+
+{{SOURCE_TEXT}}
+
+{{STRUCTURED_ELEMENTS}}
+
+{{GENERATED_TEXT}}
+
+{{TARGET_DETAIL_LEVEL}}
+
+{{OPTIONAL_REFERENCE_TEXT}}
+
+
+Step 3
+
+Paste into your LLM.
+
+Step 4
+
+Save the JSON result.
+
+That gives you a manual end-to-end workflow:
+
+1. generate
+
+
+2. score
+
+
+3. compare prompt versions
+
+
+
+This is actually the easiest way to start before wiring everything in code.
+
+
+---
+
+6. How to run the batch workflow
+
+Once your gold_standard/ folder has cases, run:
+
+python scripts/batch_evaluate.py
+
+This script should:
+
+iterate through each case folder
+
+load the files
+
+call the evaluator
+
+save outputs into batch_evaluation_outputs/
+
+
+Expected outputs:
+
+summary.csv
+
+summary.json
+
+per_case/*.json
+
+
+Again, this becomes fully real only after the dummy client is replaced with a real one.
+
+
+---
+
+7. How to run the A/B test
+
+Once you have:
+
+generation/v1/csr_study_design_generator.md
+
+generation/v2/csr_study_design_generator.md
+
+
+run:
+
+python scripts/ab_test_generator_prompts.py
+
+That should:
+
+load each case
+
+generate text with prompt A
+
+generate text with prompt B
+
+score both with the same evaluator
+
+choose a winner
+
+save CSV and JSON summaries
+
+
+Outputs go into:
+
+ab_test_outputs/
+
+
+---
+
+8. The real current state of your workflow
+
+Right now, your workflow is best thought of as:
+
+Already built
+
+prompt architecture
+
+scoring architecture
+
+batch architecture
+
+A/B testing architecture
+
+repo structure
+
+
+Not yet fully wired
+
+real LLM client integration
+
+automatic planner → generator chaining
+
+automatic saving/loading of generated outputs from a live model
+
+
+So today, the practical way to run it is:
+
+Option A — manual but real
+
+Use your prompt files directly in ChatGPT / Claude / your add-in / your repo workflow.
+
+Option B — scripted but partly simulated
+
+Run the Python scripts with the dummy client to test wiring.
+
+Option C — next real upgrade
+
+Connect the scripts to an actual model endpoint.
+
+
+---
+
+9. What I would do right now in your position
+
+I would run it in this order:
+
+First
+
+Do one case manually:
+
+run V1
+
+run V2
+
+score both
+
+compare outputs
+
+
+Second
+
+Do one V3 case:
+
+planner
+
+generator
+
+scorer
+
+
+Third
+
+Once the prompts are behaving well, connect the Python harness to a real model.
+
+That avoids wasting time debugging code before you know the prompts are good.
+
+
+---
+
+10. Practical manual workflow example
+
+For one case, right now:
+
+Inputs
+
+source protocol excerpt
+
+structured extraction
+
+detail level = Standard
+
+
+Run
+
+1. paste into generation/v2/csr_study_design_generator.md
+
+
+2. get generated paragraph
+
+
+3. paste paragraph into evaluation/csr_study_design_generator_scorer.md
+
+
+4. get JSON evaluation
+
+
+5. repeat with V3
+
+
+6. compare
+
+
+
+That is a fully usable workflow already.
+
+
+---
+
+11. The next coding step
+
+The next thing you need is a real LLMClient implementation for whichever model/backend you plan to use in practice.
+
+Without that, the scripts are scaffolding.
+
+With that, the repo becomes a real runnable system.
+
+I can write you a clean next step: a simple local runner script that lets you choose v1, v2, or v3 for one case and prints the results.
