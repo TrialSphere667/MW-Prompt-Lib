@@ -1,22 +1,35 @@
 Hi [Name/Team],
 
-I’m building a Python-based workflow for internal prompt evaluation and structured text generation, and I’d like to use our approved internal LLM service rather than any external API.
+I’m currently building a local Python-based workflow to prototype an internal AI-assisted process for CSR study design development. The goal is to evaluate and improve prompt-based generation using a structured pipeline (including extraction, generation, and evaluation/scoring steps).
 
-Could you share the developer integration details for the internal LLM endpoint?
+At this stage, I’m working with synthetic/anonymized data, but I would like to integrate with our approved internal LLM service to make the workflow more realistic and scalable. This would allow me to test things like structured outputs (e.g., JSON scoring), prompt consistency, and controlled generation behavior in a way that aligns with our internal tooling.
 
-What I need specifically:
+To proceed, could you please share the developer integration details for the internal LLM service?
 
-- Base URL / endpoint
-- Authentication method
+Specifically, it would be very helpful to have:
+
+- Sandbox / non-production endpoint (if available) for safe experimentation
+- Base URL / API endpoint(s)
+- Authentication method (API key, OAuth, service account, etc.)
 - Supported model names/IDs
-- Example Python request/response
-- Request and response schema
-- Whether structured JSON output is supported
-- Rate limits / usage limits
-- Any network requirements (VPN, proxy, certificates, allowlisting)
-- Guidance on approved data types for use with the service
+- Example request/response (ideally Python)
+- Request schema
+  - prompt/message format
+  - system prompt support
+  - parameters (temperature, max tokens, etc.)
+  - support for structured / JSON-only outputs
+- Response schema
+  - where generated text is returned
+  - error format
+- Rate limits / usage constraints
+- Network requirements (VPN, proxy, certificates, allowlisting, etc.)
+- Guidance on approved data usage, particularly for protocol or CSR-related content
 
-My use case is controlled text generation and JSON-based evaluation for internal workflow prototyping.
+My intention is to keep this as a controlled prototype and align fully with internal policies before using any real or sensitive study data.
 
-Thanks,
+Please let me know if there’s existing documentation or a recommended onboarding path I should follow instead.
+
+Thanks very much for your help!
+
+Best regards,
 [Your Name]
