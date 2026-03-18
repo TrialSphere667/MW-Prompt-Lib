@@ -1,0 +1,22 @@
+Hi [Name/Team],
+
+I’m building a Python-based workflow for internal prompt evaluation and structured text generation, and I’d like to use our approved internal LLM service rather than any external API.
+
+Could you share the developer integration details for the internal LLM endpoint?
+
+What I need specifically:
+
+- Base URL / endpoint
+- Authentication method
+- Supported model names/IDs
+- Example Python request/response
+- Request and response schema
+- Whether structured JSON output is supported
+- Rate limits / usage limits
+- Any network requirements (VPN, proxy, certificates, allowlisting)
+- Guidance on approved data types for use with the service
+
+My use case is controlled text generation and JSON-based evaluation for internal workflow prototyping.
+
+Thanks,
+[Your Name]
