@@ -192,8 +192,27 @@ Return valid JSON only:
   "strengths": [],
   "recommended_revisions": [],
   "overall_score": 0,
-  "overall_verdict": ""
+  "overall_verdict": "",
+  "interpretation": "",
+  "notes": ""
 }
+
+---
+
+## INTERPRETATION & NOTES
+
+- **interpretation**:  
+Provide a concise (1–2 sentence) summary explaining the overall score and verdict.
+
+- **notes**:  
+Provide optional additional context for reviewers, such as:
+- key risks  
+- borderline judgments  
+- notable trade-offs  
+
+If no additional context is needed, return: `"notes": "None"`
+
+Do NOT repeat dimension rationales. Keep concise.
 
 ---
 
