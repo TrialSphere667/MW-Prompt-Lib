@@ -38,8 +38,29 @@ Return JSON only:
     "reason": ""
   },
   "overall_score": 0,
-  "overall_verdict": ""
+  "overall_verdict": "",
+  "interpretation": "",
+  "notes": ""
 }
+
+---
+
+## INTERPRETATION & NOTES
+
+- **interpretation**:  
+Provide a concise (1–2 sentence) summary explaining the overall score and verdict, focusing on the verifier’s effectiveness in identifying real issues and avoiding false positives.
+
+- **notes**:  
+Provide optional additional context for reviewers, such as:
+- key risks in the verifier’s assessment  
+- borderline judgments  
+- notable trade-offs (e.g., high sensitivity but lower specificity)
+
+If no additional context is needed, return: `"notes": "None"`
+
+Do NOT repeat dimension rationales. Keep concise.
+
+---
 
 SOURCE_TEXT:
 {{SOURCE_TEXT}}
