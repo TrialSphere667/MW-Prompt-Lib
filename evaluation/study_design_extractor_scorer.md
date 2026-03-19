@@ -1,76 +1,85 @@
-# study_design_extractor_scorer.md
+# CSR Study Design Core Extraction Schema
 
-You are a senior regulatory evaluator assessing a structured extraction of study design elements.
+Extract only study design information that is explicitly stated or reasonably supportable from the source text.
 
-Evaluate the extraction against the source text.
+Do NOT invent or over-specify.
 
-Score:
-1. critical_field_precision (0-5)
-2. critical_field_recall (0-5)
-3. uncertainty_handling (0-5)
-4. schema_quality (0-5)
+If an element is not stated, unclear, or not applicable, indicate that explicitly.
 
-Critical fields include, where relevant:
-- phase
-- design
-- randomization
-- blinding
-- comparator
-- population
-- cohorts/groups
-- period structure
-- dose escalation
-- center structure
-- parallel/crossover
+---
 
-Critical failure is present if:
-- extracted field contradicts source
-- missing multiple core fields
-- confident extraction where source is ambiguous
+## OUTPUT FORMAT
 
-Return JSON only:
+Return structured JSON only.
 
 {
-  "dimension_scores": {
-    "critical_field_precision": {"score": 0, "rationale": ""},
-    "critical_field_recall": {"score": 0, "rationale": ""},
-    "uncertainty_handling": {"score": 0, "rationale": ""},
-    "schema_quality": {"score": 0, "rationale": ""}
+  "study_identification": {
+    "study_phase": "",
+    "study_type": "",
+    "study_objective_or_design_purpose": "",
+    "population_type": "",
+    "indication_or_context": ""
   },
-  "incorrect_fields": [],
-  "missing_fields": [],
-  "ambiguity_errors": [],
-  "critical_failure": {
-    "present": false,
-    "reason": ""
+  "overall_design": {
+    "overall_design_summary": "",
+    "randomized": "",
+    "randomization_details": "",
+    "blinding_status": "",
+    "blinding_details": "",
+    "control_status": "",
+    "comparator_type": "",
+    "comparator_description": "",
+    "parallel_or_crossover": "",
+    "center_structure": "",
+    "number_of_centers": ""
   },
-  "overall_score": 0,
-  "overall_verdict": "",
-  "interpretation": "",
-  "notes": ""
+  "population": {
+    "population_description": "",
+    "key_population_qualifiers": [],
+    "special_population_notes": ""
+  },
+  "treatment_structure": {
+    "number_of_treatment_groups_or_arms": "",
+    "treatment_groups_or_arms_description": [],
+    "number_of_cohorts": "",
+    "cohort_structure": "",
+    "dose_escalation_structure": "",
+    "treatment_sequence_structure": "",
+    "sentinel_dosing": "",
+    "special_design_components": []
+  },
+  "study_structure": {
+    "number_of_parts": "",
+    "part_descriptions": [],
+    "number_of_periods": "",
+    "period_descriptions": [],
+    "screening_period": "",
+    "treatment_period": "",
+    "washout_period": "",
+    "follow_up_period": "",
+    "extension_period": ""
+  },
+  "duration_timing": {
+    "overall_study_duration": "",
+    "participant_duration": "",
+    "treatment_duration": "",
+    "follow_up_duration": ""
+  },
+  "special_design_features": {
+    "adaptive_features": "",
+    "cohort_expansion": "",
+    "interim_review_features": "",
+    "substudies_or_design_subcomponents": [],
+    "other_special_design_features": []
+  },
+  "objective_framing": {
+    "primary_design_objective_framing": "",
+    "secondary_design_objective_framing": ""
+  },
+  "source_quality_flags": {
+    "ambiguities": [],
+    "missing_or_unclear_design_elements": [],
+    "weakly_supported_interpretations": [],
+    "elements_requiring_human_review": []
+  }
 }
-
----
-
-## INTERPRETATION & NOTES
-
-- **interpretation**:  
-Provide a concise (1–2 sentence) summary explaining the overall score and verdict, focusing on extraction quality and reliability.
-
-- **notes**:  
-Provide optional additional context for reviewers, such as:
-- key extraction risks  
-- borderline judgments  
-- notable trade-offs (e.g., high recall but low precision)
-
-If no additional context is needed, return: `"notes": "None"`
-
-Do NOT repeat dimension rationales. Keep concise.
-
----
-
-SOURCE_TEXT:
-{{SOURCE_TEXT}}
-
-EXTRACTED_ELEMENTS:
-{{EXTRACTED_ELEMENTS}}
